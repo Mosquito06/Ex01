@@ -1,4 +1,4 @@
-package com.dgit.ex01;
+package com.dgit.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
