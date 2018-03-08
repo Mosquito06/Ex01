@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dgit.domain.BoardVO;
+import com.dgit.domain.Criteria;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -42,6 +43,27 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<BoardVO> listAll() throws Exception {
 		return sqlSession.selectList(namespace + ".listAll");
+	}
+
+	@Override
+	public List<BoardVO> listPage(int page) throws Exception {
+		if(page <= 0){
+			page = 1;
+		}
+		
+		page = (page - 1) * 10;
+				
+		return sqlSession.selectList(namespace + ".listPage", page);
+	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+		return sqlSession.selectList(namespace + ".listCriteria", cri);
+	}
+
+	@Override
+	public int countPaging() throws Exception {
+		return sqlSession.selectOne(namespace + ".countPaging");
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Repository;
 
 import com.dgit.domain.BoardVO;
+import com.dgit.domain.Criteria;
 import com.dgit.persistence.BoardDao;
 
 @Repository
@@ -38,6 +39,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> listAll() throws Exception {
 		return dao.listAll();
+	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+		return dao.listCriteria(cri);
+	}
+
+	@Override
+	public int listCountCriteria() throws Exception {
+		return dao.countPaging();
 	}
 
 }

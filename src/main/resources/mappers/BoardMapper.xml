@@ -11,11 +11,23 @@
 	</select>
 	
 	<select id="listAll" resultType="BoardVO">
-	    select * from tbl_board order by regdate desc
+	    select * from tbl_board order by bno desc, regdate desc
+	</select>
+	
+	<select id="listPage" resultType="BoardVO">
+	    select * from tbl_board order by bno desc, regdate desc limit #{page}, 10
+	</select>
+	
+	<select id="listCriteria" resultType="BoardVO">
+	    select * from tbl_board order by bno desc, regdate desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countPaging" resultType="int">
+	    select count(bno) from tbl_board;
 	</select>
 	
 	<update id="update">
-	    update tbl_board set title = #{title}, content = #{content} where bno = #{bno}
+	    update tbl_board set title = #{title}, content = #{content}, viewcnt = ${viewcnt} where bno = #{bno}
 	</update>
 	
 	<delete id="delete">

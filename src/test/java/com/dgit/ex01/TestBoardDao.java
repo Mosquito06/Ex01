@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dgit.domain.BoardVO;
+import com.dgit.domain.Criteria;
 import com.dgit.persistence.BoardDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -67,10 +68,34 @@ public class TestBoardDao {
 		}
 	}
 	
-		@Test
+		//@Test
 		public void TestDelete(){
 			try {
 				dao.delete(1);;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		@Test
+		public void TestListPage(){
+			try {
+				dao.listPage(3);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		@Test
+		public void TestListCriteria(){
+			Criteria cri = new Criteria();
+			cri.setPage(1);
+			cri.setPerPageNum(20);
+			
+			try {
+				dao.listCriteria(cri);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
