@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dgit.domain.BoardVO;
 import com.dgit.domain.Criteria;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.persistence.BoardDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -78,7 +79,7 @@ public class TestBoardDao {
 			}
 		}
 		
-		@Test
+		//@Test
 		public void TestListPage(){
 			try {
 				dao.listPage(3);
@@ -88,7 +89,7 @@ public class TestBoardDao {
 			}
 		}
 		
-		@Test
+		//@Test
 		public void TestListCriteria(){
 			Criteria cri = new Criteria();
 			cri.setPage(1);
@@ -96,6 +97,34 @@ public class TestBoardDao {
 			
 			try {
 				dao.listCriteria(cri);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		//@Test
+		public void TestListSearchCount(){
+			SearchCriteria sc = new SearchCriteria();
+			sc.setSearchType("t");
+			sc.setKeyword("경리");
+			
+			try {
+				dao.listSearchCount(sc);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		@Test
+		public void TestListSearch(){
+			SearchCriteria sc = new SearchCriteria();
+			sc.setSearchType("t");
+			sc.setKeyword("경리");
+			
+			try {
+				dao.listSearch(sc);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

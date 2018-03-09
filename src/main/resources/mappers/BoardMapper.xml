@@ -22,8 +22,41 @@
 	    select * from tbl_board order by bno desc, regdate desc limit #{pageStart}, #{perPageNum}
 	</select>
 	
+	<sql id="search">
+	    <if test="searchType == 't'.toString()">
+	        where title like CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="searchType == 'c'.toString()">
+	        where content like CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="searchType == 'w'.toString()">
+	        where writer like CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="searchType == 'tc'.toString()">
+	        where title like CONCAT('%', #{keyword}, '%') or content like CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="searchType == 'cw'.toString()">
+	        where content like CONCAT('%', #{keyword}, '%') or writer like CONCAT('%', #{keyword}, '%')
+	    </if>
+	     <if test="searchType == 'tcw'.toString()">
+	        where title like CONCAT('%', #{keyword}, '%') or content like CONCAT('%', #{keyword}, '%') or writer like CONCAT('%', #{keyword}, '%')
+	    </if>
+	    	    
+	</sql>
+		
+	<select id="listSearch" resultType="BoardVO">
+	    select * from tbl_board  
+	    <include refid="search"/>
+	    order by bno desc, regdate desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
 	<select id="countPaging" resultType="int">
-	    select count(bno) from tbl_board;
+	    select count(bno) from tbl_board
+	</select>
+	
+	<select id="listSearchCount" resultType="int">
+	    select count(bno) from tbl_board
+	    <include refid="search"/>
 	</select>
 	
 	<update id="update">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dgit.domain.BoardVO;
 import com.dgit.domain.Criteria;
+import com.dgit.domain.SearchCriteria;
 
 public interface BoardDao {
 	public void create(BoardVO vo) throws Exception;
@@ -14,4 +15,6 @@ public interface BoardDao {
 	public List<BoardVO> listPage(int page) throws Exception;
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception;
 	public int countPaging() throws Exception;
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception;
 }
