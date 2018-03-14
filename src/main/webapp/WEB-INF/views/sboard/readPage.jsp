@@ -199,7 +199,7 @@
 				
 				$.ajax({
 					url : "/ex02/replies/" + rno,
-					type : "put",
+					type : "PUT",
 					dataType : "text",
 					data : JSON.stringify(sendDate),
 					headers : {"Content-Type" : "application/json"},
@@ -216,7 +216,7 @@
 				
 				$.ajax({
 					url : "/ex02/replies/" + rno,
-					type : "delete",
+					type : "DELETE",
 					dataType : "text",
 					success : function(result){
 						getPage(1);
