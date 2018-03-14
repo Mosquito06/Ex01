@@ -133,6 +133,13 @@
 		{{/each}}
 	</script>
 	<script>
+		$("#pagination").on("click", "li a", function(e){
+			e.preventDefault();
+			var page = $(this).attr("href");
+			getPage(page);
+			
+		})
+			
 		Handlebars.registerHelper("prettifyDate", function(value){
 			var dateObj = new Date(value);
 			var year = dateObj.getFullYear();
@@ -217,6 +224,9 @@
 					
 				})
 			})
+			
+			
+			
 		})
 		
 		function getPage(page){
