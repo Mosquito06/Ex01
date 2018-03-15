@@ -12,7 +12,6 @@
 					<form method="post" action="ModifyPage">
 						<div class="form-group">
 							<label>Title</label>
-							<input type="hidden" name="count" value="false">
 							<input type="hidden" name="bno" value="${board.bno }">
 							<input type="hidden" name="viewcnt" value="${board.viewcnt }">
 							<input type="hidden" name="page" value="${cri.page }">

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,8 @@ import com.dgit.service.ReplyService;
 @RestController
 @RequestMapping("/replies")
 public class ReplyController {
-
+	private static final Logger logger = LoggerFactory.getLogger(ReplyController.class);
+	
 	@Autowired
 	private ReplyService service;
 
@@ -104,7 +107,7 @@ public class ReplyController {
 	@RequestMapping(value="/{rno}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> remove(@PathVariable("rno") int rno){
 		ResponseEntity<String> entity = null;
-		
+		logger.info("remove start");
 		try {
 			service.delete(rno);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);

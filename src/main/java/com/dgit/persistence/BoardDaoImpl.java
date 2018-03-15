@@ -88,4 +88,10 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 
+	@Override
+	public void updateViewCount(int bno) throws Exception {
+		sqlSession.update(namespace + ".updateViewCount", bno);
+		
+	}
+
 }

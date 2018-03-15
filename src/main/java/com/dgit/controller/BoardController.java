@@ -73,7 +73,7 @@ public class BoardController {
 	public void read(int bno, Model model) throws Exception{
 		logger.info("read GET");
 		
-		BoardVO board = service.read(bno);
+		BoardVO board = service.read(bno, true);
 		model.addAttribute("board", board);
 	}
 	
@@ -81,14 +81,14 @@ public class BoardController {
 	public void readPage(int bno, boolean count, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		logger.info("readPage GET");
 		logger.info("count" + count);
-		BoardVO board = service.read(bno);
+		BoardVO board = service.read(bno, false);
 		
 		if(count == true){
 			board.setViewcnt(board.getViewcnt()+1);
 			service.modify(board);
 		}
 		
-		BoardVO board2 = service.read(bno);
+		BoardVO board2 = service.read(bno, false);
 		model.addAttribute("board", board2);
 		
 	}
@@ -97,7 +97,7 @@ public class BoardController {
 	public void modifyGet(int bno, Model model) throws Exception{
 		logger.info("Modify GET");
 		
-		BoardVO board = service.read(bno);
+		BoardVO board = service.read(bno, false);
 		model.addAttribute("board", board);
 		
 	}
@@ -115,7 +115,7 @@ public class BoardController {
 	public void ModifyPageGet(int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		logger.info("ModifyPage GET");
 		
-		BoardVO board = service.read(bno);
+		BoardVO board = service.read(bno, false);
 		model.addAttribute("board", board);
 		
 	}

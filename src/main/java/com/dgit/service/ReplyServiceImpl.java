@@ -40,6 +40,7 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(int rno) throws Exception {
 		int bno = replyDao.getBno(rno);
 		replyDao.delete(rno);

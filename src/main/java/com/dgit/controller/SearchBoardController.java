@@ -52,24 +52,18 @@ public class SearchBoardController {
 	}
 	
 	@RequestMapping("readPage")
-	public void readPage(int bno, @ModelAttribute("cri") SearchCriteria cri, Model model, boolean count) throws Exception{
+	public void readPage(int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		logger.info("readPage");
-		BoardVO board = service.read(bno);
-		
-		if(count == true){
-			board.setViewcnt(board.getViewcnt()+1);
-			service.modify(board);
-		}
-		
-		BoardVO board2 = service.read(bno);
-		model.addAttribute("board", board2);
+		BoardVO board = service.read(bno, true);
+				
+		model.addAttribute("board", board);
 	}
 	
 	@RequestMapping(value = "ModifyPage", method = RequestMethod.GET)
 	public void ModifyPageGet(int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		logger.info("ModifyPage GET");
 		
-		BoardVO board = service.read(bno);
+		BoardVO board = service.read(bno, false);
 		model.addAttribute("board", board);
 		
 	}
@@ -84,7 +78,7 @@ public class SearchBoardController {
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
-		return "redirect: readPage";
+		return "redirect: listPage";
 	}
 	
 	@RequestMapping("RemovePage")

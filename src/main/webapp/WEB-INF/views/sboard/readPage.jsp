@@ -198,7 +198,7 @@
 				var sendDate = {replytext : replytext};
 				
 				$.ajax({
-					url : "/ex02/replies/" + rno,
+					url : "${pageContext.request.contextPath}/replies/" + rno,
 					type : "PUT",
 					dataType : "text",
 					data : JSON.stringify(sendDate),
@@ -215,7 +215,7 @@
 				var rno = $(this).parents("#modifyModal").find(".modal-title").text();
 				
 				$.ajax({
-					url : "/ex02/replies/" + rno,
+					url : "${pageContext.request.contextPath}/replies/" + rno,
 					type : "DELETE",
 					dataType : "text",
 					success : function(result){

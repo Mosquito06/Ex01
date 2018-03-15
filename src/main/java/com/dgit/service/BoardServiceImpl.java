@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dgit.domain.BoardVO;
 import com.dgit.domain.Criteria;
@@ -23,7 +24,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO read(int bno) throws Exception {
+	@Transactional
+	public BoardVO read(int bno, boolean isRead) throws Exception {
+		if(isRead){
+			dao.updateViewCount(bno);
+		}
 		return dao.read(bno);
 	}
 
