@@ -74,7 +74,7 @@
 			</div>
 			<ul class="timeline">
 				<li class="time-label" id="replyesDiv">
-					<span class="bg-green">Replies List</span>
+					<span class="bg-green">Replies List[${board.replycnt} }]</span>
 				</li>
 			</ul>
 			<div class="text-center">
@@ -164,7 +164,7 @@
 				
 				$.ajax({
 					url: "${pageContext.request.contextPath}/replies/",
-					type: "post",
+					type: "POST",
 					headers : {"Content-Type" : "application/json"}, //@RequestBody를 사용하기 때문에 Json이라는 형식을 지정해줘야함
 					dataType : "text",
 					data : JSON.stringify(sendDate), // json 객체를 json string으로 변경해줌

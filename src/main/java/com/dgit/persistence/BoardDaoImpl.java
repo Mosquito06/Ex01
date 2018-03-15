@@ -1,5 +1,6 @@
 package com.dgit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -75,6 +76,16 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return sqlSession.selectOne(namespace + ".listSearchCount", cri);
+	}
+
+	@Override
+	public void updateReplyCount(int bno, int amount) throws Exception {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("amount", amount);
+				
+		sqlSession.update(namespace + ".updateReplyCount", map);
+		
 	}
 
 }

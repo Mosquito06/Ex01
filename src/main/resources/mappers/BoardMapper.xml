@@ -66,6 +66,10 @@
 	<delete id="delete">
 	    delete from tbl_board where bno = #{bno}
 	</delete>
+	
+	<update id="updateReplyCount">
+	    update tbl_board set replycnt = replycnt + #{amount} where bno = #{bno}
+	</update>
    
        
 </mapper>
