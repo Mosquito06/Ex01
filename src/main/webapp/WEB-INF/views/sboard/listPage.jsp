@@ -53,7 +53,7 @@
 							<c:forEach var="board" items="${list }">
 								<tr>
 									<td style="width:10px;">${board.bno }</td>
-									<td><a href="readPage${pageMake.makeSearch(pageMake.cri.page) }&bno=${board.bno }&count=true">${board.title }<span style="color:black">[${board.replycnt}]</span></a></td>
+									<td><a href="readPage${pageMake.makeSearch(pageMake.cri.page) }&bno=${board.bno }">${board.title }<span style="color:black">[${board.replycnt}]</span></a></td>
 									<td>${board.content }</td>
 									<td>
 										<fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd HH:mm"/>
