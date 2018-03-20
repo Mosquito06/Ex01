@@ -11,6 +11,8 @@ import com.dgit.domain.BoardVO;
 import com.dgit.domain.Criteria;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.persistence.BoardDao;
+import com.dgit.persistence.ReplyDao;
+import com.dgit.util.UploadFileUtils;
 
 @Repository
 public class BoardServiceImpl implements BoardService {
@@ -18,9 +20,23 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDao dao;
 	
+	@Inject
+	private ReplyDao replyDao;
+	
 	@Override
+	@Transactional
 	public void regist(BoardVO board) throws Exception {
 		dao.create(board);
+		
+		String[] files = board.getFiles();
+		
+		if(files == null){
+			return;
+		}else{
+			for(String fileName : files){
+				dao.addAttach(fileName, board.getBno());
+			}
+		}
 	}
 
 	@Override
@@ -29,17 +45,57 @@ public class BoardServiceImpl implements BoardService {
 		if(isRead){
 			dao.updateViewCount(bno);
 		}
-		return dao.read(bno);
+		
+		BoardVO vo = dao.read(bno);
+		List<String> list = dao.getAttach(bno);
+							// 컬렉션을 배열로 반환
+		String[] files = list.toArray(new String[list.size()]);
+		
+		vo.setFiles(files);
+			
+		return vo;
 	}
 
 	@Override
 	public void modify(BoardVO board) throws Exception {
+		String[] files = board.getFiles();
+		
+		System.out.println(board.getBno());
+		
+		if(files != null){
+			for(String fileName : files){
+				dao.addAttach(fileName, board.getBno());
+			}
+		}
+		
 		dao.update(board);
 	}
 
 	@Override
+	@Transactional
 	public void remove(int bno) throws Exception {
-		dao.delete(bno);;
+		BoardVO vo = dao.read(bno);
+		
+		List<String> files = dao.getAttach(bno);
+		
+		if(files.size() != 0){
+			System.out.println("그림 삭제 진입?");
+			
+			for(String file : files){
+				UploadFileUtils.deleteImg(file);
+			}
+			
+			dao.delAttach(bno);
+		}
+		
+		int replyCount = replyDao.countReply(bno);
+		if(replyCount != 0){
+
+			System.out.println("리플 삭제 진입?");
+			replyDao.deleteByBno(bno);
+		}
+		
+		dao.delete(bno);
 	}
 
 	@Override
@@ -65,6 +121,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
+	}
+
+	@Override
+	public void delAttachByfullName(int bno, String fullName) throws Exception {
+		dao.delAttachByfullName(bno, fullName);
+		
 	}
 
 	

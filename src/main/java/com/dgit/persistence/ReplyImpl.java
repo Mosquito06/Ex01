@@ -60,4 +60,10 @@ public class ReplyImpl implements ReplyDao {
 		return sqlSession.selectOne(NAMESPACE + ".getBno", rno);
 	}
 
+	@Override
+	public void deleteByBno(int bno) throws Exception {
+		sqlSession.delete(NAMESPACE + ".deleteByBno", bno);
+		
+	}
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../include/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 <script>
@@ -32,6 +33,7 @@
 						<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
 						<input type="hidden" name="searchType" value="${cri.searchType }">
 						<input type="hidden" name="keyword" value="${cri.keyword }">
+						<input type="hidden" name="files" value="${board.files }">
 					</form>
 						<div class="form-group">
 							<label>Title</label>
@@ -44,6 +46,13 @@
 						<div class="form-group">
 							<label>Writer</label>
 							<input type="text" name="writer" readonly="readonly" class="form-control" value="${board.writer }" placeholder="writer">
+						</div>
+						<div class="form-group">
+							<c:forEach var="file" items="${board.files }">
+								<img src="displayFile?filename=${file }">
+									
+							</c:forEach>
+							
 						</div>
 						<div class="form-group">
 							<input type="button" value="Modify" class="btn btn-warning">

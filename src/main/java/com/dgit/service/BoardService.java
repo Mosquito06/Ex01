@@ -18,5 +18,6 @@ public interface BoardService {
 	public int listCountCriteria() throws Exception;
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
 	public int listSearchCount(SearchCriteria cri) throws Exception;
+	public void delAttachByfullName(int bno, String fullName) throws Exception;
 	
 }

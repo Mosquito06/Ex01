@@ -94,4 +94,35 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 
+	@Override
+	public void addAttach(String fullName, int bno) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("fullName", fullName);
+		map.put("bno", bno);
+		
+		sqlSession.insert(namespace + ".addAttach", map);
+		
+	}
+
+	@Override
+	public List<String> getAttach(int bno) throws Exception {
+		return sqlSession.selectList(namespace + ".getAttach", bno);
+	}
+
+	@Override
+	public void delAttach(int bno) throws Exception {
+		sqlSession.delete(namespace + ".delAttach", bno);
+		
+	}
+
+	@Override
+	public void delAttachByfullName(int bno, String fullName) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("fullName", fullName);
+		
+		sqlSession.delete(namespace + ".delAttachByfullName", map);
+		
+	}
+
 }
