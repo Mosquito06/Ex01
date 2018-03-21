@@ -29,6 +29,25 @@
 	    <beans:constructor-arg value="c:/zzz/upload"/>
 	</beans:bean>
 
+	<beans:bean id="loginInterceptor" class="com.dgit.interceptor.LoginInterceptor"/>
+	<beans:bean id="AuthInterceptor" class="com.dgit.interceptor.AuthInterceptor"/>
+	
+	<interceptors>
+	    <interceptor>
+	  		<mapping path="/user/loginPost"/>      
+	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	    
+	    <interceptor>
+	  		<mapping path="/sboard/readPage"/>      
+	        <mapping path="/sboard/register"/>
+	        <mapping path="/sboard/ModifyPage"/>
+	        <mapping path="/sboard/RemovePage"/>
+	        <beans:ref bean="AuthInterceptor"/>
+	    </interceptor>
+	    
+	 </interceptors>
+		
 	<context:component-scan base-package="com.dgit.controller" />
 	
 	

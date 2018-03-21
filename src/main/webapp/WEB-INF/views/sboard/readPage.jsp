@@ -45,7 +45,7 @@
 						</div>
 						<div class="form-group">
 							<label>Writer</label>
-							<input type="text" name="writer" readonly="readonly" class="form-control" value="${board.writer }" placeholder="writer">
+							<input type="text" name="writer" readonly="readonly" class="form-control" value="${board.writer }">
 						</div>
 						<div class="form-group">
 							<c:forEach var="file" items="${board.files }">
@@ -55,8 +55,11 @@
 							
 						</div>
 						<div class="form-group">
-							<input type="button" value="Modify" class="btn btn-warning">
-							<input type="button" value="Remove" class="btn btn-danger">
+							<c:if test="${login.userid == board.writer }">
+								<input type="button" value="Modify" class="btn btn-warning">
+								<input type="button" value="Remove" class="btn btn-danger">
+							</c:if>
+							
 							<input type="button" value="Go List" class="btn btn-primary">
 						</div>
 				</div>
@@ -73,9 +76,9 @@
 				</div>
 				<div class="box-body">
 					<label for="Writer">Writer</label>
-					<input type="text" id="Writer" class="form-control">
+					<input type="text" id="Writer" class="form-control" value="${login.userid }">
 					<label for="replytest">Reply Text</label>
-					<input type="text" id="replytext" class="form-control">
+					<input type="text" id="replytext" class="form-control" >
 				</div>
 				<div class="box-footer">
 					<button class="btn btn-primary" id="replyAddBtn">Add Reply</button>
@@ -132,11 +135,14 @@
 					<span class="time">
 						<i class="fa fa-clock-o"></i>{{prettifyDate regdate}}
 					</span>
-				<h3 class="timeline-header"><strong>{{rno}}</strong> -{{replyer}}</h3>
-				<div class="timeline-body">{{replytext}}</div>
-				<div class="timeline-footer">
+				  <h3 class="timeline-header"><strong>{{rno}}</strong> -{{replyer}}</h3>
+				  <div class="timeline-body">{{replytext}}</div>
+				
+				  {{#if replyer}}
+				  <div class="timeline-footer">
 					<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modifyModal">Modify</a>
-				</div>
+				  </div>
+				  {{/if}}
 				</div>
 			</li>
 		{{/each}}
@@ -157,6 +163,14 @@
 			
 			return year + "-" + month + "-" + date;
 			
+		})
+		
+		Handlebars.registerHelper("if", function(replyer, option){
+			if(replyer == "${login.userid}"){ // El로 넘어오는 객체가 브라우저에서는 스트링으로 인식하지 못하기 때문에 큰 따움표로 감싼 것임
+				return option.fn(this);
+			}else{
+				return "";
+			}
 		})
 	
 		var bno = ${board.bno };

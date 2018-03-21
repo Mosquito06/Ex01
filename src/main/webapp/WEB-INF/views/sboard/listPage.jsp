@@ -14,6 +14,7 @@
 		$("#newBoard").click(function(){
 			location.href="register";
 		})
+		
 	})
 
 </script>

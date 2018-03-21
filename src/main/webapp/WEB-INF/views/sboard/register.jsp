@@ -50,7 +50,7 @@
 						</div>
 						<div class="form-group">
 							<label>Writer</label>
-							<input type="text" name="writer" class="form-control" placeholder="writer">
+							<input type="text" name="writer" class="form-control" value="${login.userid }" readonly="readonly">
 						</div>
 						<div class="form-group">
 							<label>Image File</label>
